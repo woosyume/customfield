@@ -1,0 +1,33 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="customfield"/>
+    
+    <!-- add our web resources -->
+    <web-resource key="customfield-resources" name="customfield Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        
+        <resource type="download" name="customfield.css" location="/css/customfield.css"/>
+        <resource type="download" name="customfield.js" location="/js/customfield.js"/>
+        <resource type="download" name="images/" location="/images"/>
+
+        <context>customfield</context>
+    </web-resource>
+
+    <!-- 特定のモジュールを宣言するために使用する。-->
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+
+    <customfield-type key="admintextfield" name="Admin Editable Text Field" class="net.atlassian.woohyeok.plguins.customfield.JiraCustomField">
+        <description>A text field only editable by those with admin permissions</description>
+        <resource type="velocity" name="view" location="templates/view-basictext.vm"/>
+        <resource type="velocity" name="edit" location="templates/edit-jiraadminonlytext.vm"/>
+        <resource type="velocity" name="xml" location="xml-basictext.vm"/>
+    </customfield-type>
+</atlassian-plugin>
